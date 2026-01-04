@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Arbaz</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#e6d3b1;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* GRID */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size:50px 50px;
+  pointer-events:none;
+}
+
+/* SLIDES */
+.slide{
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* SLIDE 1 */
+.slide1{
+  background:#ffe4d6;
+}
+.slide1 h1{
+  font-family:cursive;
+  color:#6a2c70;
+  margin-bottom:40px;
+}
+
+.characters-gifts{
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+.character{
+  width:150px;
+}
+.gift{
+  width:180px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.gift:hover{
+  transform:scale(1.1);
+}
+
+/* SLIDE 2 */
+.slide2{
+  display:none;
+  background:#e6d3b1;
+}
+.slide2 h1{
+  font-family:cursive;
+  font-size:42px;
+}
+
+.collage{
+  position:relative;
+  width:100%;
+  height:65vh;
+}
+.photo{
+  position:absolute;
+  width:170px;
+  border:6px solid white;
+  box-shadow:0 8px 18px rgba(0,0,0,0.3);
+  opacity:0;
+  animation:photoIn 1s forwards;
+}
+.i1{top:30px; left:15%; animation-delay:.2s}
+.i2{top:40px; right:15%; animation-delay:.4s}
+.i3{bottom:30px; left:20%; animation-delay:.6s}
+.i4{bottom:30px; right:20%; animation-delay:.8s}
+
+.cake{
+  width:280px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  animation:bounce 1.5s infinite;
+}
+
+.wish{
+  width:400px;
+  display:none;
+  border:6px solid white;
+}
+
+button{
+  margin:10px;
+  padding:10px 25px;
+  border:none;
+  border-radius:20px;
+  background:#ff7a00;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+#backBtn{background:#555}
+
+@keyframes photoIn{
+  from{opacity:0; transform:translateY(40px)}
+  to{opacity:1}
+}
+@keyframes bounce{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-55%) scale(1.08)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide slide1">
+  <h1>Click a Gift Box 🎁</h1>
+  <div class="characters-gifts">
+    <img src="leftChar.png" class="character">
+    <img src="gift1.png" class="gift" onclick="openSlide('collage')">
+    <img src="gift2.png" class="gift" onclick="openSlide('wish')">
+    <img src="rightChar.png" class="character">
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide slide2" id="slide2">
+  <h1>Happy Birthday 🎉</h1>
+
+  <div class="collage" id="collage">
+    <img src="p1.jpg" class="photo i1">
+    <img src="p2.jpg" class="photo i2">
+    <img src="p3.jpg" class="photo i3">
+    <img src="p4.jpg" class="photo i4">
+    <img src="cake.png" class="cake">
+  </div>
+
+  <img src="wish.jpg" class="wish" id="wish">
+
+  <audio id="song">
+    <source src="birthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <button onclick="document.getElementById('song').play()">🎶 Play Song</button>
+  <button id="backBtn" onclick="goBack()">⬅ Back</button>
+</div>
+
+<script>
+/* PASSWORD */
+document.addEventListener("DOMContentLoaded",()=>{
+  let p = prompt("🔒 Enter Password");
+  if(p !== "arbaz2004"){
+    document.body.innerHTML =
+      "<h1 style='margin-top:40vh;font-family:Arial;'>❌ Access Denied</h1>";
+  }
+});
+
+function openSlide(type){
+  document.querySelector(".slide1").style.display="none";
+  document.getElementById("slide2").style.display="flex";
+  document.getElementById("collage").style.display =
+    type==="collage"?"block":"none";
+  document.getElementById("wish").style.display =
+    type==="wish"?"block":"none";
+}
+
+function goBack(){
+  document.querySelector(".slide1").style.display="flex";
+  document.getElementById("slide2").style.display="none";
+  let a=document.getElementById("song");
+  a.pause(); a.currentTime=0;
+}
+</script>
+
+</body>
+</html>
